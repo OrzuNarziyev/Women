@@ -1,0 +1,61 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'myapp/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'myapp/css/style.css' %}">
+    <title>Document</title>
+</head>
+<body>
+
+{% block nav %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#"><img width="50" src="{% static 'myapp/images/208-2081416_django-development.png' %}" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+
+{#                {% for x in list %}#}
+{#                    {% if x == 'home' %}#}
+{#                        <li class="nav-item active">#}
+{#                            <a class="nav-link" href="#">{{ x }}<span class="sr-only">(current)</span></a>#}
+{#                        </li>#}
+{#                    {% else %}#}
+{#                        <li class="nav-item">#}
+{#                            <a class="nav-link" href="#">{{ x }}</a>#}
+{#                        </li>#}
+{#                    {% endif %}#}
+{#                {% endfor %}#}
+
+
+            </ul>
+
+        </div>
+    </nav>
+
+{% endblock %}
+{#<img width="300" src="{% static 'myapp/images/208-2081416_django-development.png' %}" alt="">#}
+
+{% for x in women %}
+
+    <img width="200" src="{{ x.photo.url }}" alt="{{ x.title }}">
+    <h1>{{ x.title | title }}</h1>
+    <code>time update {{ x.time_update| date:"SHORT_DATE_FORMAT" }}</code>
+    {% autoescape off %}
+        <p>{{ x.content | linebreaks }}</p>
+    {% endautoescape %}
+
+{% empty %}
+
+    <h1>kechirasiz fayl topilmadi</h1>{% now "SHORT_DATETIME_FORMAT" %}
+{% endfor %}
+
+</body>
+</html>
