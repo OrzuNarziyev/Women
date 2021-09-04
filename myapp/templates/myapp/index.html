@@ -1,7 +1,51 @@
 {% extends  'myapp/base.html' %}
 {% load static %}
 
+{% block aside %}
+    <aside id="aside">
+    <div class="menu-categoriya">
+        <ul class="item">
+            <li class="items"><a href="#">categoriya</a></li>
+            <li class="items"><a href="#">categoriya</a></li>
+            <li class="items"><a href="#">categoriya</a></li>
+        </ul>
+    </div>
+</aside>
+
+{% endblock %}
 
 {% block content %}
-    main
+<main id="main p-xl-2">
+    {% for x in women %}
+    <div class="card p-2 m-3">
+        <div class="info d-flex justify-content-between p-2 bg-light my-2">
+            <span>categoriya:</span>
+            <code>date:{{ x.time_update | date:'SHORT_DATE_FORMAT' }} {{ x.time_update | time:"H:i:s" }}</code>
+        </div>
+        <div class="card_women d-flex ">
+            <div class="card-image">
+                <img width="150" src="{{ x.photo.url }}" alt="{{ x.title }}">
+            </div>
+            <div class="title p-2">
+                <h1>{{ x.title }}</h1>
+                <p>{{ x.content |truncatewords:50}}</p>
+            </div>
+
+        </div>
+        <a href="{{x.get_absolute_url}}" class="d-flex justify-content-end mx-5">
+
+            <button width="100" type="button" class="btn btn-info justify-content-end">davomi</button>
+        </a>
+    </div>
+    {% empty %}
+    <h3>sorry i'm not find objects</h3>
+    {% endfor %}
+</main>
+
 {% endblock %}
+
+
+
+
+
+
