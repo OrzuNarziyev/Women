@@ -1,12 +1,13 @@
- {% extends  'myapp/base.html' %}
-{% load static %}
+{% extends 'myapp/base.html' %}
+
 
 {% block aside %}
- {% include 'myapp/aside.html' %}
+{% include 'myapp/aside.html' %}
 {% endblock %}
 
 {% block content %}
-    <main id="main p-xl-2">
+
+   <main id="main p-xl-2">
         {% for x in women %}
             <div class="card p-2 m-3">
                 <div class="info d-flex justify-content-between p-2 bg-light my-2">
@@ -33,12 +34,5 @@
         {% endfor %}
     </main>
 
+
 {% endblock %}
-
-
-
-
-
-
-
-

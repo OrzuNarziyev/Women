@@ -7,23 +7,23 @@
 {% block content %}
     <main id="main p-xl-2">
 
-      <div class="card p-2 m-3">
-                <div class="info d-flex justify-content-between p-2 bg-light my-2">
-                    <span>categoriya:{{ post.cat_id.name }}</span>
-                    <code>date:{{ post.time_update | date:'SHORT_DATE_FORMAT' }} {{ post.time_update | time:"H:i:s" }}</code>
+        <div class="card p-2 m-3">
+            <div class="info d-flex justify-content-between p-2 bg-light my-2">
+                <span>categoriya:{{ post.cat_id.name }}</span>
+                <code>date:{{ post.time_update | date:'SHORT_DATE_FORMAT' }} {{ post.time_update | time:"H:i:s" }}</code>
+            </div>
+            <div class="card_women d-flex ">
+                <div class="card-image">
+                    <img width="150" src="{{ post.photo.url }}" alt="{{ post.title }}">
                 </div>
-                <div class="card_women d-flex ">
-                    <div class="card-image">
-                        <img width="150" src="{{ post.photo.url }}" alt="{{ post.title }}">
-                    </div>
-                    <div class="title p-2">
-                        <h1>{{ post.title }}</h1>
-                        <p>{{ post.content | linebreaks }}</p>
-                    </div>
-
+                <div class="title p-2">
+                    <h1>{{ post.title }}</h1>
+                    <p>{{ post.content | linebreaks }}</p>
                 </div>
 
             </div>
+
+        </div>
 
 
     </main>

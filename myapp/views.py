@@ -19,7 +19,6 @@ def index(request):
     }
     return render(request, 'myapp/index.html', context=context)
 
-
 def about(request):
     return render(request, 'myapp/about.html')
 
@@ -73,3 +72,15 @@ def search_result(request):
         'query': query
     }
     return render(request, 'myapp/search.html', context=context)
+
+
+def contact(request):
+    return HttpResponse('contact us')
+
+
+def help(request):
+    return HttpResponse('help')
+
+
+def search(request):
+    return render(request, 'myapp/search.html')

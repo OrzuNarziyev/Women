@@ -1,0 +1,20 @@
+<aside class="aside">
+    <ul class="aside-item">
+        {% if cat_selected == 0 %}
+            <li class="aside-items status-active">Umumiy</li>
+        {% else %}
+            <li class="aside-items"><a class="" href="{% url 'home' %}">Umumiy</a></li>
+        {% endif %}
+    {% for cat in cats %}
+        {% if cat.pk == cat_selected %}
+            <li class="aside-items status-active">{{ cat.name }}</li>
+            {% else %}
+            <li class="aside-items"><a class="" href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
+        {% endif %}
+    
+    {% endfor %}
+    
+
+    </ul>
+
+</aside>
