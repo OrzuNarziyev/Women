@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-hsp&h=5k23n#72hy!%)i3v35=%sj!j7^62w+iz3hv$(ok275fc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'Women.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'women1',
+        'NAME': 'womens',
         'USER': 'postgres',
         'PASSWORD': '050596',
         'HOST': '127.0.0.1',

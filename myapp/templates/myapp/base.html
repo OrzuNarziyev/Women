@@ -1,61 +1,61 @@
 {% load static %}
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
     <link rel="stylesheet" href="{% static 'myapp/css/bootstrap.css' %}">
+
     <link rel="stylesheet" href="{% static 'myapp/css/style.css' %}">
-    <title>Document</title>
 </head>
 <body>
+<div class="container-fluid">
 
-{% block nav %}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#"><img width="50" src="{% static 'myapp/images/208-2081416_django-development.png' %}" alt=""></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+    <header id="header">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-{#                {% for x in list %}#}
-{#                    {% if x == 'home' %}#}
-{#                        <li class="nav-item active">#}
-{#                            <a class="nav-link" href="#">{{ x }}<span class="sr-only">(current)</span></a>#}
-{#                        </li>#}
-{#                    {% else %}#}
-{#                        <li class="nav-item">#}
-{#                            <a class="nav-link" href="#">{{ x }}</a>#}
-{#                        </li>#}
-{#                    {% endif %}#}
-{#                {% endfor %}#}
+            <a class="navbar-brand" href="#"><span class="broad">Broad</span> <span class="way">Way</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}">Сontact us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}">Help</a>
+                    </li>
 
 
-            </ul>
+                </ul>
+                <form action="{% url 'search_result' %}" method="get" class="d-flex form-search">
+                    <input name="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
 
-        </div>
-    </nav>
+                </form>
+            </div>
 
-{% endblock %}
-{#<img width="300" src="{% static 'myapp/images/208-2081416_django-development.png' %}" alt="">#}
+        </nav>
+    </header>
 
-{% for x in women %}
+    {% block aside %}
+    {% endblock %}
 
-    <img width="200" src="{{ x.photo.url }}" alt="{{ x.title }}">
-    <h1>{{ x.title | title }}</h1>
-    <code>time update {{ x.time_update| date:"SHORT_DATE_FORMAT" }}</code>
-    {% autoescape off %}
-        <p>{{ x.content | linebreaks }}</p>
-    {% endautoescape %}
+    {% block content %}
+    {% endblock %}
 
-{% empty %}
-
-    <h1>kechirasiz fayl topilmadi</h1>{% now "SHORT_DATETIME_FORMAT" %}
-{% endfor %}
+    <footer id="footer">footer</footer>
+</div>
 
 </body>
 </html>

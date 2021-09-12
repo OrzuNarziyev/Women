@@ -1,0 +1,121 @@
+li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+header {
+    grid-area: header;
+}
+
+aside {
+    grid-area: aside;
+    background-color: silver;
+
+}
+
+.aside-item {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.aside-items {
+    font-size: 24px;
+    margin: .5rem 0 1rem;
+    padding: .5rem;
+}
+
+.status-active {
+    background: #fff;
+
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: -10px;
+    border-bottom-right-radius: -10px;
+}
+
+
+main {
+    grid-area: main;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+footer {
+    grid-area: footer;
+    height: 300px;
+    background-color: darkcyan;
+}
+
+.post {
+    grid-area: post;
+    min-height: 100vh;
+}
+
+.container-fluid {
+    display: grid;
+    grid-template-columns: .8fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: "header header header header" "post post post post" "aside main main main" "footer footer footer footer";
+
+
+}
+
+@media only screen and (max-width: 600px) {
+    .container-fluid {
+        grid-template-columns: 1fr;
+        grid-template-areas: "header" "aside" "main"  "footer";
+
+    }
+}
+
+
+.broad {
+    font-size: 28px;
+    font-weight: 900;
+    font-family: fantasy;
+    letter-spacing: 3px;
+}
+
+.way {
+    font-size: 28px;
+    font-family: fantasy;
+    font-weight: 900;
+    color: darkred;
+
+}
+
+.form-search {
+    float: left;
+}
+
+.title > a {
+    text-align: right;
+}
+
+
+.nav-link {
+    /*font-size: 28px;*/
+}
+
+.nav {
+    padding-top: 2rem;
+    text-align: center;
+}
+
+.select {
+    font-size: 28px;
+    margin-left: 30px;
+    background: #fff;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+
+}
