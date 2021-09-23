@@ -1,37 +1,96 @@
- {% extends  'myapp/base.html' %}
+{% extends  'myapp/base.html' %}
 {% load static %}
 
 {% block aside %}
- {% include 'myapp/aside.html' %}
+	{% include 'myapp/aside.html' %}
 {% endblock %}
 
 {% block content %}
-    <main id="main p-xl-2">
-        {% for x in women %}
-            <div class="card p-2 m-3">
-                <div class="info d-flex justify-content-between p-2 bg-light my-2">
-                    <span>categoriya: <b><i style="color: red">{{ x.cat_id.name|title }}</i></b></span>
-                    <code>date:{{ x.time_update | date:'SHORT_DATE_FORMAT' }} {{ x.time_update | time:"H:i:s" }}</code>
-                </div>
-                <div class="card_women d-flex ">
-                    <div class="card-image">
-                        <img width="150" src="{{ x.photo.url }}" alt="{{ x.title }}">
-                    </div>
-                    <div class="title p-2">
-                        <h1>{{ x.title }}</h1>
-                        <p>{{ x.content |truncatewords:50 }}</p>
-                    </div>
 
-                </div>
-                <a href="{{ x.get_absolute_url }}" class="d-flex justify-content-end mx-5">
 
-                    <button width="100" type="button" class="btn btn-info justify-content-end">davomi</button>
-                </a>
-            </div>
-        {% empty %}
-            <h3>sorry i'm not find objects</h3>
-        {% endfor %}
-    </main>
+	<main id = "main p-xl-2">
+		{% for x in object_list %}
+			<div class = "card p-2 m-3">
+				<div class = "info d-flex justify-content-between p-2 bg-light my-2">
+					<span>categoriya: <b><i style = "color: #ff0000">{{ x.cat_id.name|title }}</i></b></span>
+					<code>date:{{ x.time_update | date:'SHORT_DATE_FORMAT' }} {{ x.time_update | time:"H:i:s" }}</code>
+				</div>
+				<div class = "card_women d-flex ">
+					<div class = "card-image">
+						<img width = "150" src = "{{ x.photo.url }}" alt = "{{ x.title }}">
+					</div>
+					<div class = "title p-2">
+						<h1>{{ x.title }}</h1>
+						<p>{{ x.content |truncatewords:50 }}</p>
+					</div>
+
+				</div>
+				<a href = "{% url 'update' x.pk %}" class = "d-flex justify-content-end mx-5">
+
+					<button width = "100" type = "button" class = "btn btn-info justify-content-end">update</button>
+				</a>
+				<a href = "{{ x.get_absolute_url }}" class = "d-flex justify-content-end mx-5">
+
+					<button width = "100" type = "button" class = "btn btn-info justify-content-end">davomi</button>
+				</a>
+			</div>
+		{% empty %}
+			<h3>sorry i'm not find objects</h3>
+		{% endfor %}
+
+
+		<nav aria-label = "Page navigation example">
+			<ul class = "pagination justify-content-end">
+
+				{% if page_obj.has_previous and page_obj.has_next %}
+					<li class = "page-item">
+						<a class = "page-link" href = "?page=1">first</a>
+					</li>
+					<li class = "page-item">
+						<a class = "page-link" href = "?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+					</li>
+					<li class = "page-item">
+						<a class = "page-link" href = "?page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
+
+					<li class = "page-item">
+						<a class = "page-link" href = "?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+					</li>
+					<li class = "page-item">
+						<a class = "page-link" href = "?page={{ page_obj.paginator.num_pages }}">last</a>
+					</li>
+				{% elif page_obj.has_previous and not page_obj.has_next %}
+					<li class = "page-item">
+						<a class = "page-link" href = "?page=1">first</a>
+					</li>
+					<li class = "page-item">
+						<a class = "page-link" href = "?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+					</li>
+					<li class = "page-item">
+						<a class = "page-link" href = "?page={{ page_obj.number }}">{{ page_obj.number }}</a>
+					</li>
+					<li class = "page-item disabled">
+						<a class = "page-link" href = "?page={{ page_obj.paginator.num_pages }}">last</a>
+					</li>
+
+					{% elif not page_obj.has_previous and page_obj.has_next %}
+					<li class = "page-item disabled">
+						<a class = "page-link" href = "?page=1">first</a>
+					</li>
+					<li class = "page-item">
+						<a class = "page-link" href = "?page={{ page_obj.number }}">{{ page_obj.number }}</a>
+					</li>
+					<li class = "page-item">
+						<a class = "page-link" href = "?page={{ page_obj.next_page_number}}">{{ page_obj.next_page_number }}</a>
+					</li>
+					<li class = "page-item">
+						<a class = "page-link" href = "?page={{ page_obj.paginator.num_pages }}">last</a>
+					</li>
+
+				{% endif %}
+
+			</ul>
+		</nav>
+	</main>
 
 {% endblock %}
 
