@@ -1,12 +1,12 @@
 from django.db.models import Q
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404, HttpResponseNotFound
 from datetime import date
 
 from django.views.generic.edit import CreateView, UpdateView, ModelFormMixin
 from django.views.generic.detail import DetailView
 from django.views.generic import ListView
-from django.views.generic import View,TemplateView
+from django.views.generic import View, TemplateView
 
 # from .forms import WomenForms
 
@@ -14,60 +14,55 @@ from django.views.generic import View,TemplateView
 from myapp.models import Women, Categories
 
 
+class WomenList(ListView):
+    model = Women
+    template_name = 'myapp/index.html'
+    paginate_by = 3
+
+    # def get_context_data(self, *, object_list=None, **kwargs):
+    #     context = super(WomenList, self).get_context_data(**kwargs)
+    #     context['cat_selected'] = 0
+    #     return context
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        cat = Categories.objects.all()
+        context['cat'] = cat
+        return context
+
+    def get_queryset(self):
+        return Women.objects.order_by('id')
+
+
 class WomenCreateViews(CreateView):
-    # model = Women
     model = Women
     fields = '__all__'
     template_name = 'myapp/women_form.html'
     success_url = '/create'
 
+
 class WomenUpdateViews(UpdateView):
-    # model = Women
     model = Women
     fields = '__all__'
     template_name = 'myapp/women_form.html'
     success_url = '/'
 
 
-# class WomenViews(ListView):
-#     paginate_by = 2
-#     model = Women
-#     template_name = 'myapp/index.html'
-#
-#     def get_context_data(self, object_list=None, **kwargs):
-#         print(self.object_list)
-#         context = super(WomenViews, self).get_context_data(**kwargs)
-#         context['cat_selected'] = 0
-#         context['title'] = 'home_page'
-
-
-# def index(request):
-#     w = Women.objects.all()
-#     cat_selected = 0
-#     context = {
-#         'women': w,
-#         'cat_selected': cat_selected,
-#         'title': 'home'
-#     }
-#     return render(request, 'myapp/index.html', context=context)
-
-def about(request):
-    return render(request, 'myapp/about.html')
-
-
-def post_detail(request, post_id):
-    post = Women.objects.get(id=post_id)
+def post_detail(request, post_slug):
+    # post = Women.objects.get(slug=post_slug)
+    post = get_object_or_404(Women, slug=post_slug)
     context = {
         'post': post,
-        'title': 'posts'
-
+        'title': post_slug
     }
-    print(post.title)
     return render(request, 'myapp/post_detail.html', context=context)
 
 
-def show_categorie(request, cat_id):
-    posts = Women.objects.filter(cat_id=cat_id)
+def show_categorie(request, cat_slug):
+    # cat = Categories.objects.get(slug=cat_slug).id
+    # # print(cat)
+    # posts = Women.objects.filter(cat_id=cat)
+    posts = Women.objects.filter(cat_id__slug__iexact=cat_slug)
     # get filter all exclude
     # icontains
     # iexact
@@ -76,17 +71,12 @@ def show_categorie(request, cat_id):
 
     context = {
         'object_list': posts,
-        'cat_selected': cat_id,
-        'title': 'categorie',
+        'cat_selected': cat_slug,
+        'title': cat_slug,
 
     }
 
     return render(request, 'myapp/index.html', context=context)
-
-
-
-def PageNotFound(request, exception):
-    return HttpResponseNotFound(f'not found')
 
 
 def search_result(request):
@@ -101,12 +91,6 @@ def search_result(request):
     return render(request, 'myapp/search.html', context=context)
 
 
-
-
-def contact(request):
-    return HttpResponse('contact us')
-
-
 def help(request):
     return HttpResponse('help')
 
@@ -114,21 +98,14 @@ def help(request):
 def search(request):
     return render(request, 'myapp/search.html')
 
-class WomenList(ListView):
-    model = Women
-    template_name = 'myapp/index.html'
-    paginate_by = 3
+
+def contact(request):
+    return HttpResponse('contact us')
 
 
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(WomenList, self).get_context_data(**kwargs)
-        context['cat_selected'] = 0
-        return context
-
-    def get_queryset(self):
-        return Women.objects.order_by('id')
+def about(request):
+    return render(request, 'myapp/about.html')
 
 
-
-
+def PageNotFound(request, exception):
+    return HttpResponseNotFound(f'not found')

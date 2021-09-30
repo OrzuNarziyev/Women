@@ -1,5 +1,5 @@
 {% for cat in cats %}
-    {% if cat.pk == cat_selected %}
+    {% if cat.slug == cat_selected %}
         <li class="aside-items status-active">{{ cat.name }}</li>
     {% else %}
         <li class="aside-items"><a class="" href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
