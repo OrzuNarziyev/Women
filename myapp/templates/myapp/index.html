@@ -29,7 +29,7 @@
 
 					<button width = "100" type = "button" class = "btn btn-info justify-content-end">update</button>
 				</a>
-				<a href = "{{ x.get_absolute_url }}" class = "d-flex justify-content-end mx-5">
+				<a href = "{% url 'post_detail' x.slug %}" class = "d-flex justify-content-end mx-5">
 
 					<button width = "100" type = "button" class = "btn btn-info justify-content-end">davomi</button>
 				</a>

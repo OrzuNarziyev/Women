@@ -20,6 +20,7 @@ from myapp.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('myapp.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 handler404 = PageNotFound
