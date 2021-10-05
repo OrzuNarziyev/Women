@@ -26,6 +26,7 @@ urlpatterns = [
 
     # authentication
     path('register/', register, name='register'),
+    # path('login/',loginpage ,name='login')
 
 ]
 if settings.DEBUG:

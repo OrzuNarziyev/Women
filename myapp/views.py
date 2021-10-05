@@ -1,3 +1,5 @@
+from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
@@ -16,6 +18,8 @@ from myapp.models import Women, Categories
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm
 
+from django.contrib import messages
+
 
 class WomenList(ListView):
     model = Women
@@ -23,11 +27,16 @@ class WomenList(ListView):
     paginate_by = 3
     queryset = Women.objects.order_by('-id')
 
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         # context['cat_selected'] = 0
+        print(self.request.user.username)
         context['today'] = date.today()
         return context
+
+
+
 
     # def get_queryset(self):
     #     return Women.objects.filter()
@@ -59,6 +68,7 @@ class DetailViews(DetailView):
         # context['title'] =
         return context
 
+
 # def post_detail(request, post_slug):
 #     # post = Women.objects.get(slug=post_slug)
 #     post = get_object_or_404(Women, slug=post_slug)
@@ -68,7 +78,7 @@ class DetailViews(DetailView):
 #     }
 #     return render(request, 'myapp/post_detail.html', context=context)
 
-
+# @login_required
 def show_categorie(request, cat_slug):
     # cat = Categories.objects.get(slug=cat_slug).id
     # # print(cat)
@@ -102,17 +112,56 @@ def search_result(request):
     return render(request, 'myapp/search.html', context=context)
 
 
+# def register(request):
+#     if request.method == 'POST':
+#         form = CreateUserForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             #log the user in
+#             return redirect('index')
+#     else:
+#         form = CreateUserForm()
+#     return render(request, 'login', {'form':form})
+
+
 def register(request):
     form = CreateUserForm()
-    context = {'form':form}
+    context = {'form': form}
 
-    if request.method=="POST":
-        form=CreateUserForm(request.POST)
+    if request.method == "POST":
+        form = CreateUserForm(request.POST)
+        # print(form)
         if form.is_valid():
-            form.save()
-        return redirect('login')
+            print('succses')
 
-    return render(request, 'myapp/register.html',context=context)
+
+            user = form.cleaned_data.get('username')
+            messages.success(request, 'bu foydalanuvch' + user + 'royhatdan otgan')
+            form.save()
+            return redirect('login')
+
+
+
+    return render(request, 'myapp/register.html', context=context)
+
+
+# def loginpage(request):
+#     if request.method == 'POST':
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+#
+#         user = authenticate(request,username=username,password=password)
+#
+#         if user is not None:
+#             login(request,user)
+#         else:
+#             messages.info(request,'username yoki parol xato')
+
+
+# def logoutpage(request):
+#     logout(request)
+#     return redirect('home')
+
 
 
 def help(request):

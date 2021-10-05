@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="{% static 'myapp/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'myapp/css/style.css' %}">
 </head>
+
+
+
 <body>
 <div class="container-fluid">
 
@@ -39,6 +42,7 @@
                     </li>
 
 
+
                 </ul>
                 <form action="{% url 'search_result' %}" method="get" class="d-flex form-search">
                     <input name="search" class="form-control me-2" type="search" placeholder="Search"
@@ -46,6 +50,8 @@
                     <button class="btn btn-outline-success" type="submit">Search</button>
 
                 </form>
+				 {{ user.username }}
+	            <a href = "{% url 'logout' %}">logout</a>
             </div>
 
         </nav>
