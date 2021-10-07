@@ -8,7 +8,7 @@
 {% block content %}
 
    <main id="main p-xl-2">
-        {% for x in women %}
+        {% for x in object_list %}
             <div class="card p-2 m-3">
                 <div class="info d-flex justify-content-between p-2 bg-light my-2">
                     <span>categoriya: <b><i style="color: red">{{ x.cat_id.name|title }}</i></b></span>
